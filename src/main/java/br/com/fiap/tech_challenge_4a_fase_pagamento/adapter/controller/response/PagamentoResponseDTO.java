@@ -7,6 +7,7 @@ import java.util.UUID;
 public record PagamentoResponseDTO(Long id,
                                    UUID pedidoId,
                                    BigDecimal valor,
+                                   String numeroCartao,
                                    String status,
                                    LocalDateTime dataCriacao) {
 }

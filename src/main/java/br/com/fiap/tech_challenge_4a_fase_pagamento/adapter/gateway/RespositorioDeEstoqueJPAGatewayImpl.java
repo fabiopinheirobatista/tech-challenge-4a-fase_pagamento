@@ -8,6 +8,7 @@ import br.com.fiap.tech_challenge_4a_fase_pagamento.core.gateways.PagamentoGatew
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,13 +21,14 @@ public class RespositorioDeEstoqueJPAGatewayImpl implements PagamentoGateway {
     @Override
     public Optional<Pagamento> processarPagamento(Pagamento pagamentoInput) {
         PagamentoEntity pagamentoEntity = pagamentoMapper.toPagamentoEntity(pagamentoInput);
+        pagamentoEntity.setDataCriacao(LocalDateTime.now());
         PagamentoEntity pagamentoSalvo = pagamentoRepository.save(pagamentoEntity);
         return Optional.ofNullable(pagamentoSalvo).map(pagamentoMapper::toPagamentoDomain);
     }
 
     @Override
     public Optional<Pagamento> consultarStatusPagamento(UUID pedidoId) {
-        return pagamentoRepository.findByPedidoId(pedidoId)
+        return pagamentoRepository.findFirstByPedidoIdOrderByDataCriacaoDesc(pedidoId)
                 .map(pagamentoMapper::toPagamentoDomain);
     }
 

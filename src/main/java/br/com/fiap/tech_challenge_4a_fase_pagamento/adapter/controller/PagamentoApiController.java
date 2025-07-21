@@ -25,7 +25,7 @@ public class PagamentoApiController implements PagamentoController{
 
     @PostMapping
     @Override
-    public ResponseEntity<PagamentoResponseDTO> processarPagamento(PagamentoRequestDTO pagamentoRequestDTO) throws Exception {
+    public ResponseEntity<PagamentoResponseDTO> processarPagamento(@RequestBody PagamentoRequestDTO pagamentoRequestDTO) throws Exception {
         Pagamento pagamentoInput = mapper.toPagamentoDomain(pagamentoRequestDTO);
         Pagamento pagamentoOutPut = processarPagamentoUseCase.execute(pagamentoInput);
         PagamentoResponseDTO pagamentoResponseDTO = mapper.toResponseDTO(pagamentoOutPut);
@@ -34,8 +34,8 @@ public class PagamentoApiController implements PagamentoController{
 
     @GetMapping("/{idPagamento}")
     @Override
-    public ResponseEntity<PagamentoResponseDTO> consultarStatus(UUID pedidoId) {
-        Pagamento pagamentoOutPut = consultarPagamentoUseCase.execute(pedidoId);
+    public ResponseEntity<PagamentoResponseDTO> consultarStatus(@PathVariable UUID idPagamento) {
+        Pagamento pagamentoOutPut = consultarPagamentoUseCase.execute(idPagamento);
         PagamentoResponseDTO pagamentoResponseDTO = mapper.toResponseDTO(pagamentoOutPut);
         return ResponseEntity.ok(pagamentoResponseDTO);
     }
