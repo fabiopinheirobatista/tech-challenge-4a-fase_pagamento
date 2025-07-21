@@ -5,7 +5,6 @@ import br.com.fiap.tech_challenge_4a_fase_pagamento.adapter.controller.request.P
 import br.com.fiap.tech_challenge_4a_fase_pagamento.adapter.controller.response.PagamentoResponseDTO;
 import br.com.fiap.tech_challenge_4a_fase_pagamento.adapter.mapper.PagamentoMapper;
 import br.com.fiap.tech_challenge_4a_fase_pagamento.core.domain.Pagamento;
-import br.com.fiap.tech_challenge_4a_fase_pagamento.core.gateways.PagamentoGateway;
 import br.com.fiap.tech_challenge_4a_fase_pagamento.core.usecase.pagamento.ConsultarPagamentoUseCase;
 import br.com.fiap.tech_challenge_4a_fase_pagamento.core.usecase.pagamento.ProcessarPagamentoUseCase;
 import lombok.AllArgsConstructor;

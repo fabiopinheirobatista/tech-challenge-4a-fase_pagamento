@@ -1,8 +1,6 @@
 package br.com.fiap.tech_challenge_4a_fase_pagamento.adapter.exception;
 
-import br.com.fiap.tech_challenge_4a_fase_pagamento.core.exception.PagamentoInvalidoException;
 import br.com.fiap.tech_challenge_4a_fase_pagamento.core.exception.PagamentoNaoEncontradoException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -79,73 +77,27 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(e, problema, new HttpHeaders(), status, request);
     }
 
-//    @ExceptionHandler(TransacaoNaoEncontradaException.class)
-//    public ResponseEntity<Object> handleTransacaoNaoEncontradaException(TransacaoNaoEncontradaException e, WebRequest request){
-//        HttpStatus status = HttpStatus.NOT_FOUND;
-//
-//        ProblemType problemaType = ProblemType.RECURSO_NAO_ENCONTRADO;
-//        String detail = e.getMessage();
-//        Problem problema = createProblemBuilder(status,problemaType, detail)
-//                .userMessage(detail)
-//                .build();
-//        return handleExceptionInternal(e, problema, new HttpHeaders(), status, request);
-//    }
-
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException e, WebRequest request) {
-        HttpStatus status = HttpStatus.CONFLICT;
-        ProblemType problemType = ProblemType.DADOS_INVALIDOS;
-
-        String detail;
-        String mensagemUsuario;
-
-        if (e.getMessage().contains("Duplicate entry") && e.getMessage().contains("cpf")) {
-            detail = "Já existe um cliente cadastrado com o CPF informado.";
-            mensagemUsuario = "CPF já cadastrado no sistema. Por favor, verifique o CPF informado.";
-        } else {
-            detail = "Ocorreu uma violação de integridade dos dados.";
-            mensagemUsuario = "Não foi possível processar a requisição. Por favor, verifique os dados informados.";
-        }
-
-        Problem problema = createProblemBuilder(status, problemType, detail)
-                .userMessage(mensagemUsuario)
+    @ExceptionHandler(ErroSalvarPagamentoException.class)
+    public ResponseEntity<Object> handleErroSalvarPagamentoException(ErroSalvarPagamentoException e, WebRequest request) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
+        String detail = e.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage(detail)
                 .build();
-
-        return handleExceptionInternal(e, problema, new HttpHeaders(), status, request);
+        return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
     }
 
-//    @ExceptionHandler(RequisicaoInvalidaException.class)
-//    public ResponseEntity<Object> handleRequisicaoInvalidaException(RequisicaoInvalidaException e, WebRequest request) {
-//        HttpStatus status = HttpStatus.BAD_REQUEST;
-//        ProblemType problemType = ProblemType.DADOS_INVALIDOS;
-//        String detail = e.getMessage();
-//        Problem problem = createProblemBuilder(status, problemType, detail)
-//                .userMessage(detail)
-//                .build();
-//        return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
-//    }
-//
-//    @ExceptionHandler(PagamentoInvalidoException.class)
-//    public ResponseEntity<Object> handlePagamentoInvalidoException(PagamentoInvalidoException e, WebRequest request) {
-//        HttpStatus status = HttpStatus.BAD_REQUEST;
-//        ProblemType problemType = ProblemType.DADOS_INVALIDOS;
-//        String detail = e.getMessage();
-//        Problem problem = createProblemBuilder(status, problemType, detail)
-//                .userMessage(detail)
-//                .build();
-//        return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
-//    }
-//
-//    @ExceptionHandler(EstadoPagamentoInvalidoException.class)
-//    public ResponseEntity<Object> handleEstadoPagamentoInvalidoException(EstadoPagamentoInvalidoException e, WebRequest request) {
-//        HttpStatus status = HttpStatus.CONFLICT;
-//        ProblemType problemType = ProblemType.ERRO_NEGOCIO;
-//        String detail = e.getMessage();
-//        Problem problem = createProblemBuilder(status, problemType, detail)
-//                .userMessage(detail)
-//                .build();
-//        return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
-//    }
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    public ResponseEntity<Object> handleRecursoNaoEncontradoException(RecursoNaoEncontradoException e, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.DADOS_INVALIDOS;
+        String detail = e.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage(detail)
+                .build();
+        return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
+    }
 
     private Problem.ProblemBuilder createProblemBuilder(HttpStatusCode status, ProblemType problemaType, String detail){
 

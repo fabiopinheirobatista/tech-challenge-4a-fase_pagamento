@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @Getter
 @ToString
+@Setter
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
