@@ -1,7 +1,7 @@
 package br.com.fiap.mspagamento.core.usecase.pagamento;
 
 import br.com.fiap.mspagamento.core.domain.Pagamento;
-import br.com.fiap.mspagamento.core.exception.PagamentoNaoEncontrado;
+import br.com.fiap.mspagamento.core.exception.PagamentoNaoEncontradoException;
 import br.com.fiap.mspagamento.core.gateways.PagamentoGateway;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,6 @@ public class ConsultarPagamentoUseCase {
 
     public Pagamento execute(UUID pedidoId){
         Optional<Pagamento> pagamento = pagamentoGateway.consultarStatusPagamento(pedidoId);
-        return pagamento.orElseThrow(() -> new PagamentoNaoEncontrado("Pagamento não encontrado para o pedido: " + pedidoId));
+        return pagamento.orElseThrow(() -> new PagamentoNaoEncontradoException("Pagamento não encontrado para o pedido: " + pedidoId));
     }
 }

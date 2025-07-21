@@ -32,7 +32,8 @@ public class PagamentoMapper {
                 pagamento.getValor(),
                 pagamento.getNumeroCartao(),
                 pagamento.getStatus().name(),
-                pagamento.getDataCriacao()
+                pagamento.getDataCriacao(),
+                pagamento.getIdTransacao()
         );
     }
 
@@ -48,6 +49,7 @@ public class PagamentoMapper {
                 StatusPagamentoEntity.valueOf(pagamento.getStatus().name()) : null
         );
         entity.setDataCriacao(pagamento.getDataCriacao());
+        entity.setIdTransacao(pagamento.getIdTransacao());
         return entity;
     }
 
@@ -63,6 +65,7 @@ public class PagamentoMapper {
                         StatusPagamento.valueOf(entity.getStatus().name()) : null
                 )
                 .dataCriacao(entity.getDataCriacao())
+                .idTransacao(entity.getIdTransacao())
                 .build();
     }
 }

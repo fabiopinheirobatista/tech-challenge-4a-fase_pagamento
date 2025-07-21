@@ -19,7 +19,7 @@ public class RespositorioDeEstoqueJPAGatewayImpl implements PagamentoGateway {
     private final PagamentoRepository pagamentoRepository;
     private final PagamentoMapper pagamentoMapper;
     @Override
-    public Optional<Pagamento> processarPagamento(Pagamento pagamentoInput) {
+    public Optional<Pagamento> salvarPagamento(Pagamento pagamentoInput) {
         PagamentoEntity pagamentoEntity = pagamentoMapper.toPagamentoEntity(pagamentoInput);
         pagamentoEntity.setDataCriacao(LocalDateTime.now());
         PagamentoEntity pagamentoSalvo = pagamentoRepository.save(pagamentoEntity);

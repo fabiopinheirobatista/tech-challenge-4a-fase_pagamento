@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public interface PagamentoGateway {
 
-    Optional<Pagamento> processarPagamento(Pagamento pagamentoInput);
+    Optional<Pagamento> salvarPagamento(Pagamento pagamentoInput);
     Optional<Pagamento> consultarStatusPagamento(UUID pedidoId);
 }

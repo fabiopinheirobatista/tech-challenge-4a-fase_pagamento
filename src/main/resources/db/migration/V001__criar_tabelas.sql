@@ -5,6 +5,7 @@ CREATE TABLE pagamentos (
         numero_cartao VARCHAR(16) NOT NULL,
         status VARCHAR(20),
         data_criacao DATETIME NOT NULL,
+        id_transacao VARCHAR(255),
         INDEX idx_pedido_id (pedido_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

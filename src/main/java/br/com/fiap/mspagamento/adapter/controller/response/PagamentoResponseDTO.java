@@ -9,5 +9,6 @@ public record PagamentoResponseDTO(Long id,
                                    BigDecimal valor,
                                    String numeroCartao,
                                    String status,
-                                   LocalDateTime dataCriacao) {
+                                   LocalDateTime dataCriacao,
+                                   String idTransacao) {
 }

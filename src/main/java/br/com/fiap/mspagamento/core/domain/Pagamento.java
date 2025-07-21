@@ -20,6 +20,7 @@ public class Pagamento {
     private BigDecimal valor;
     private String numeroCartao;
     private StatusPagamento status;
+    private String idTransacao;
     private LocalDateTime dataCriacao;
 
 }

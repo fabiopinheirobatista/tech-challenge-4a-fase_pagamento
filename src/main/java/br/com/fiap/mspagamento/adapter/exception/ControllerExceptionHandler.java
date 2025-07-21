@@ -1,5 +1,6 @@
 package br.com.fiap.mspagamento.adapter.exception;
 
+import br.com.fiap.mspagamento.core.exception.PagamentoJaProcessadoException;
 import br.com.fiap.mspagamento.core.exception.PagamentoNaoEncontradoException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -77,6 +78,16 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(e, problema, new HttpHeaders(), status, request);
     }
 
+    @ExceptionHandler(PagamentoJaProcessadoException.class)
+    public ResponseEntity<Object> handleErroSalvarPagamentoException(PagamentoJaProcessadoException e, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.DADOS_INVALIDOS;
+        String detail = e.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage(detail)
+                .build();
+        return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
+    }
     @ExceptionHandler(ErroSalvarPagamentoException.class)
     public ResponseEntity<Object> handleErroSalvarPagamentoException(ErroSalvarPagamentoException e, WebRequest request) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;

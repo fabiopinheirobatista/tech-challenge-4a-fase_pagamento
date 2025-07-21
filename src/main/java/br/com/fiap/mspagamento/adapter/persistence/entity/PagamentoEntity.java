@@ -39,4 +39,7 @@ public class PagamentoEntity {
 
     @Column(nullable = false)
     private LocalDateTime dataCriacao;
+
+    @Column(name = "id_transacao", nullable = false)
+    private String idTransacao;
 }
