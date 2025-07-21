@@ -3,9 +3,9 @@ package br.com.fiap.mspagamento.adapter.mapper;
 import br.com.fiap.mspagamento.adapter.controller.request.PagamentoRequestDTO;
 import br.com.fiap.mspagamento.adapter.controller.response.PagamentoResponseDTO;
 import br.com.fiap.mspagamento.adapter.persistence.entity.PagamentoEntity;
+import br.com.fiap.mspagamento.adapter.persistence.entity.StatusPagamentoEntity;
 import br.com.fiap.mspagamento.core.domain.Pagamento;
 import br.com.fiap.mspagamento.core.domain.StatusPagamento;
-import br.com.fiap.mspagamento.adapter.persistence.entity.StatusPagamentoEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

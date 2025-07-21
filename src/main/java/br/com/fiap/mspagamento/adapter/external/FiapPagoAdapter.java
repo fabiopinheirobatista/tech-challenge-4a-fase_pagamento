@@ -2,8 +2,6 @@ package br.com.fiap.mspagamento.adapter.external;
 
 import br.com.fiap.mspagamento.core.domain.PagamentoGatewayResponse;
 import br.com.fiap.mspagamento.core.gateways.ProcessadorPagamentoExternoGateway;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
