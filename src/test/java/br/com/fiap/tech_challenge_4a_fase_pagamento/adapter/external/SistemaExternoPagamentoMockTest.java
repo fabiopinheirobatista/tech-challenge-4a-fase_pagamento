@@ -69,4 +69,28 @@ class SistemaExternoPagamentoMockTest {
         final String transacaoFinal = transacaoIdAprovada;
         assertThrows(TransacaoNaoEncontradaException.class, () -> sistemaExterno.estornarPagamento(transacaoFinal));
     }
+    
+    @Test
+    @DisplayName("Deve consultar status de transação existente")
+    void deveConsultarStatusTransacaoExistente() {
+        Pagamento pagamento = new Pagamento(1L, 1L, "123456", new BigDecimal("100.00"));
+        String idTransacao = sistemaExterno.processarPagamento(pagamento);
+
+        ResultadoConsultaPagamento resultado = sistemaExterno.consultarStatusPagamento(idTransacao);
+
+        assertNotNull(resultado);
+        assertNotNull(resultado.getStatus());
+    }
+
+    @Test
+    @DisplayName("Deve retornar resultado NAO_ENCONTRADO ao consultar transação inexistente")
+    void deveRetornarNaoEncontradoQuandoTransacaoNaoExiste() {
+        String idFalso = "";
+
+        ResultadoConsultaPagamento resultado = sistemaExterno.consultarStatusPagamento(idFalso);
+
+        assertEquals("NAO_ENCONTRADO", resultado.getStatus());
+        assertEquals("Transação não encontrada", resultado.getMotivo());
+        assertFalse(resultado.isAprovado());
+    }
 }
